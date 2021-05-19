@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { InputGroup, FormControl, Form, Button } from 'react-bootstrap'
+import FileUpload from '../../utils/FileUpload'
 
 export default function UploadProductPage() {
 
@@ -42,6 +43,8 @@ export default function UploadProductPage() {
             </div>
 
             <form>
+
+                <FileUpload />
                 <br />
                 <br />
                 <label>이름</label>

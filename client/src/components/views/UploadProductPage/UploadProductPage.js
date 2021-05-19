@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { InputGroup, FormControl, Form } from 'react-bootstrap'
+import { InputGroup, FormControl, Form, Button } from 'react-bootstrap'
 
 export default function UploadProductPage() {
 
@@ -8,6 +8,16 @@ export default function UploadProductPage() {
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState(0)
     const [continent, setContinent] = useState(1)
+
+    const Continents = [
+        { key: 1, value: "Africa" },
+        { key: 2, value: "Europe" },
+        { key: 3, value: "Asia" },
+        { key: 4, value: "North America" },
+        { key: 5, value: "South America" },
+        { key: 6, value: "Australia" },
+        { key: 7, value: "Antarctica" }
+    ]
 
     const titleChangeHandler = (e) => {
         setTitle(e.currentTarget.value)
@@ -19,6 +29,10 @@ export default function UploadProductPage() {
 
     const priceChangeHandler = (e) => {
         setPrice(e.currentTarget.value)
+    }
+
+    const continentChangeHandler = (e) => {
+        setContinent(e.currentTarget.value)
     }
 
     return (
@@ -48,14 +62,16 @@ export default function UploadProductPage() {
                 </InputGroup>
                 <br />
                 <br />
-                <select>
-                    <option></option>
+                <select onChange={continentChangeHandler} value={continent}>
+                    {Continents.map(item => (
+                        <option key={item.key} value={item.key}>{item.value}</option>
+                    ))}
                 </select>
                 <br />
                 <br />
-                <button>
+                <Button>
                     확인
-                </button>
+                </Button>
             </form>
         </div>
     )

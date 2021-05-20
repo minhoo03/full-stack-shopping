@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Dropzone from 'react-dropzone'
 import { AiOutlinePlus } from 'react-icons/ai'
 import axios from 'axios'
@@ -6,19 +6,21 @@ import { Form } from 'react-bootstrap'
 
 export default function FileUpload() {
 
+    const [images, setImages] = useState([])
+
     const dropHandler = (files) => {
 
         let formData = new FormData() // form으로 부터 받은 data.append
 
         const config = {
-            header: {'content-type': 'multipart/fomr-data'} // backend에 content-type을 미리 알림
+            header: {'content-type': 'multipart/form-data'} // backend에 content-type을 미리 알림
         }
         formData.append("file", files[0])
 
         axios.post('/api/product/image', formData, config)
         .then(response => {
             if(response.data.success) {
-
+                setImages([...images, response.data.filePath])
             } else {
                 alert('파일을 저장하는데 실패했습니다.')
             }
@@ -41,6 +43,16 @@ export default function FileUpload() {
                     </section>
                 )}
             </Dropzone>
+
+            <div style={{ display: 'flex', width: '350px', height: '240px', overflowX: 'scroll'}}>
+                    {images.map((image, index) => (
+                        <div key={index}>
+                            <img style={{ minWidth: '300px', width: '300px', height: '240px'}} 
+                            src={`http://localhost:5000/${image}`} />
+                        </div>
+                    ))}
+            </div>
+
         </div>
     )
 }

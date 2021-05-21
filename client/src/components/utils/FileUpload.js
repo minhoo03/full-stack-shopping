@@ -28,6 +28,15 @@ export default function FileUpload() {
 
     }
 
+    const deleteHandler = (image) => {
+        const currentIndex = images.indexOf(image) // images 배열의 image(index)를 반환
+
+        let newImages = [...images]
+        newImages.splice(currentIndex, 1) // 배열 currentIndex 자리부터 1개를 지운다.
+
+        setImages(newImages)
+    }
+
     return (
         <div style={{ display: "flex", justifyContent: "space-between"}}>
             <Dropzone onDrop={dropHandler}>
@@ -46,7 +55,7 @@ export default function FileUpload() {
 
             <div style={{ display: 'flex', width: '350px', height: '240px', overflowX: 'scroll'}}>
                     {images.map((image, index) => (
-                        <div key={index}>
+                        <div key={index} onClick={() => deleteHandler(image)}>
                             <img style={{ minWidth: '300px', width: '300px', height: '240px'}} 
                             src={`http://localhost:5000/${image}`} />
                         </div>
